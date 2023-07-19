@@ -7,10 +7,22 @@ module.exports = app => {
 	let convertHandler = new ConvertHandler();
 
 	app.route('/api/convert').get((req, res) => {
-		console.log(req.query);
+		const incomingInput = req.query.input;
+
+		const initNum = convertHandler.getNum(incomingInput);
+		const initUnit = convertHandler.getUnit(incomingInput);
+
+		const returnNum = 'TBH';
+		const returnUnit = 'TBH';
+
+		const string = convertHandler.getString(initNum, initUnit, returnNum, returnUnit);
 
 		return res.json({
-			result: 'success!'
+			initNum,
+			initUnit,
+			returnNum,
+			returnUnit,
+			string
 		});
 	});
 };

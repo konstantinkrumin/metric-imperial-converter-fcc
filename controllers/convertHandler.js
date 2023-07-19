@@ -1,12 +1,18 @@
+const SPLIT_PATTERN = /[a-zA-Z]/;
+
 function ConvertHandler() {
 	this.getNum = input => {
-		let result;
+		const index = input.search(SPLIT_PATTERN);
+
+		let result = input.slice(0, index);
 
 		return result;
 	};
 
 	this.getUnit = input => {
-		let result;
+		const index = input.search(SPLIT_PATTERN);
+
+		let result = input.slice(index);
 
 		return result;
 	};
