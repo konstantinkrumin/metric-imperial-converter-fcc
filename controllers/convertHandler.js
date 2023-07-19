@@ -6,6 +6,10 @@ const convertFractionToFloat = numStr => {
 	return Math.round(result * 100) / 100;
 };
 
+const roundTo5Digits = num => {
+	return Number(Math.round(num + 'e5') + 'e-5');
+};
+
 function ConvertHandler() {
 	this.getNum = input => {
 		if (!input) return null;
@@ -77,7 +81,7 @@ function ConvertHandler() {
 				return (result = null);
 		}
 
-		return result;
+		return roundTo5Digits(result);
 	};
 
 	this.getString = (initNum, initUnit, returnNum, returnUnit) => {
