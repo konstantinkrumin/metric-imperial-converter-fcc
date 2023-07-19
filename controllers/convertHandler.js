@@ -1,11 +1,5 @@
 const SPLIT_PATTERN = /[a-zA-Z]/;
 
-const UNIT_PAIRS = [
-	{ metric: 'L', imperial: 'gal' },
-	{ metric: 'km', imperial: 'mi' },
-	{ metric: 'kg', imperial: 'lbs' }
-];
-
 const convertFractionToFloat = numStr => {
 	const [numerator, denominator] = numStr.split('/').map(Number);
 	const result = numerator / denominator;
@@ -34,10 +28,17 @@ function ConvertHandler() {
 		return result;
 	};
 
-	this.getReturnUnit = input => {
-		let result;
+	this.getReturnUnit = initUnit => {
+		const unitsMapping = [
+			['L', 'gal'],
+			['gal', 'L'],
+			['km', 'mi'],
+			['mi', 'km'],
+			['kg', 'lbs'],
+			['lbs', 'kg']
+		];
 
-		return result;
+		return unitsMapping.find(unit => unit[0] === initUnit)?.[1];
 	};
 
 	this.spellOutUnit = input => {
@@ -56,7 +57,19 @@ function ConvertHandler() {
 	};
 
 	this.getString = (initNum, initUnit, returnNum, returnUnit) => {
-		return `${initNum} ${initUnit} converts to ${returnNum} ${returnUnit}`;
+		const textMapping = [
+			{ short: 'km', long: 'kilometers' },
+			{ short: 'L', long: 'litres' },
+			{ short: 'kg', long: 'kilograms' },
+			{ short: 'gal', long: 'gallons' },
+			{ short: 'mi', long: 'miles' },
+			{ short: 'lbs', long: 'pounds' }
+		];
+
+		const initUnitLong = textMapping.find(text => text.short === initUnit).long ?? null;
+		const returnUnitLong = textMapping.find(text => text.short === returnUnit)?.long ?? null;
+
+		return `${initNum} ${initUnitLong} converts to ${returnNum} ${returnUnitLong}`;
 	};
 }
 

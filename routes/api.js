@@ -13,7 +13,7 @@ module.exports = app => {
 		const initUnit = convertHandler.getUnit(incomingInput);
 
 		const returnNum = 'TBH';
-		const returnUnit = 'TBH';
+		const returnUnit = convertHandler.getReturnUnit(initUnit);
 
 		const string = convertHandler.getString(initNum, initUnit, returnNum, returnUnit);
 
