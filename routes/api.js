@@ -10,7 +10,7 @@ module.exports = app => {
 		console.log(req.query);
 
 		return res.json({
-			result: 'success'
+			result: 'success!'
 		});
 	});
 };
