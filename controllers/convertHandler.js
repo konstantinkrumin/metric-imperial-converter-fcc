@@ -11,25 +11,14 @@ const roundTo5Digits = num => {
 };
 
 function ConvertHandler() {
-	this.getNum = input => {
-		if (!input) return null;
-
-		const index = input.search(SPLIT_PATTERN);
-		let numStr = input.slice(0, index);
-
+	this.getNum = numStr => {
 		if (!numStr) return 1;
 
 		return numStr.includes('/') ? convertFractionToFloat(numStr) : parseFloat(numStr);
 	};
 
-	this.getUnit = input => {
-		if (!input) return null;
-
-		const index = input.search(SPLIT_PATTERN);
-
-		let result = input.slice(index);
-
-		return result;
+	this.getUnit = unitStr => {
+		return unitStr;
 	};
 
 	this.getReturnUnit = initUnit => {
@@ -46,9 +35,13 @@ function ConvertHandler() {
 	};
 
 	this.spellOutUnit = input => {
-		let result;
+		if (!input) return null;
 
-		return result;
+		const index = input.search(SPLIT_PATTERN);
+		const numStr = input.slice(0, index);
+		const unitStr = input.slice(index);
+
+		return { num: numStr, unit: unitStr };
 	};
 
 	this.convert = (initNum, initUnit) => {
