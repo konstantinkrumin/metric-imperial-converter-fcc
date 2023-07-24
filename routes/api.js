@@ -10,7 +10,7 @@ module.exports = app => {
 		const incomingInput = req.query.input;
 
 		try {
-			const spelledResult = convertHandler.spellOutUnit(incomingInput);
+			const spelledResult = convertHandler.split(incomingInput);
 
 			if (!spelledResult) throw 'invalid number and unit';
 

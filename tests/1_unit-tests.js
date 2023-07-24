@@ -14,7 +14,7 @@ suite('Unit Tests', () => {
 
 	suite('Parsing input numbers', () => {
 		test('Test - a whole number input can be correctly processed', () => {
-			const spelledResult = convertHandler.spellOutUnit('3mi');
+			const spelledResult = convertHandler.split('3mi');
 			const num = convertHandler.getNum(spelledResult?.num);
 
 			isNumber(num);
@@ -22,7 +22,7 @@ suite('Unit Tests', () => {
 		});
 
 		test('Test - a decimal number input can be correctly processed', () => {
-			const spelledResult = convertHandler.spellOutUnit('3.7L');
+			const spelledResult = convertHandler.split('3.7L');
 			const num = convertHandler.getNum(spelledResult?.num);
 
 			isNumber(num);
@@ -30,7 +30,7 @@ suite('Unit Tests', () => {
 		});
 
 		test('Test - a fractional number input can be correctly processed', () => {
-			const spelledResult = convertHandler.spellOutUnit('1/2gal');
+			const spelledResult = convertHandler.split('1/2gal');
 			const num = convertHandler.getNum(spelledResult?.num);
 
 			isNumber(num);
@@ -38,14 +38,14 @@ suite('Unit Tests', () => {
 		});
 
 		test('Test - a double fraction number is returned as null', () => {
-			const spelledResult = convertHandler.spellOutUnit('3/2/3km');
+			const spelledResult = convertHandler.split('3/2/3km');
 			const num = convertHandler.getNum(spelledResult?.num);
 
 			assert.isNull(num, 'a double fraction input number is processed as null');
 		});
 
 		test('Test - a default number is shown when no input number is provided', () => {
-			const spelledResult = convertHandler.spellOutUnit('lbs');
+			const spelledResult = convertHandler.split('lbs');
 			const num = convertHandler.getNum(spelledResult?.num);
 
 			isNumber(num);
@@ -55,10 +55,11 @@ suite('Unit Tests', () => {
 
 	suite('Parsing input units', () => {
 		test('Test - a input unit can be correctly processed', () => {
-			const spelledResult = convertHandler.spellOutUnit('3MI');
-			const num = convertHandler.getUnit(spelledResult?.unit);
+			const spelledResult = convertHandler.split('3MI');
+			const unit = convertHandler.getUnit(spelledResult?.unit);
 
-			assert.strictEqual(num, 'mi', 'a valid input is read correctly');
+			assert.isString(unit, 'input unit is a string');
+			assert.strictEqual(unit, 'mi', 'a valid input is read correctly');
 		});
 	});
 

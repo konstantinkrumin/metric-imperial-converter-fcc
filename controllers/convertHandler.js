@@ -26,6 +26,21 @@ const miToKm = 1.60934;
 const lbsToKg = 0.453592;
 
 function ConvertHandler() {
+	this.split = input => {
+		if (!input) return null;
+
+		const index = input.search(SPLIT_PATTERN);
+
+		if (index !== -1) {
+			const numStr = input.slice(0, index);
+			const unitStr = input.slice(index);
+
+			return { num: numStr, unit: unitStr };
+		} else {
+			return { num: input, unit: null };
+		}
+	};
+
 	this.getNum = numStr => {
 		if (!numStr) return 1;
 		if (countCharOccurrence(numStr, '/') > 1) return null;
@@ -67,21 +82,6 @@ function ConvertHandler() {
 		return unitsMapping.find(unit => unit[0] === initUnit)?.[1];
 	};
 
-	this.spellOutUnit = input => {
-		if (!input) return null;
-
-		const index = input.search(SPLIT_PATTERN);
-
-		if (index !== -1) {
-			const numStr = input.slice(0, index);
-			const unitStr = input.slice(index);
-
-			return { num: numStr, unit: unitStr };
-		} else {
-			return { num: input, unit: null };
-		}
-	};
-
 	this.convert = (initNum, initUnit) => {
 		const galToL = 3.78541;
 		const miToKm = 1.60934;
@@ -115,7 +115,7 @@ function ConvertHandler() {
 		return roundTo5Digits(result);
 	};
 
-	this.getString = (initNum, initUnit, returnNum, returnUnit) => {
+	this.spellOutUnit = unit => {
 		const textMapping = [
 			{ short: 'km', long: 'kilometers' },
 			{ short: 'L', long: 'litres' },
@@ -125,8 +125,12 @@ function ConvertHandler() {
 			{ short: 'lbs', long: 'pounds' }
 		];
 
-		const initUnitLong = textMapping.find(text => text.short === initUnit).long ?? null;
-		const returnUnitLong = textMapping.find(text => text.short === returnUnit)?.long ?? null;
+		return textMapping.find(text => text.short === unit).long ?? null;
+	};
+
+	this.getString = (initNum, initUnit, returnNum, returnUnit) => {
+		const initUnitLong = this.spellOutUnit(initUnit);
+		const returnUnitLong = this.spellOutUnit(returnUnit);
 
 		return `${initNum} ${initUnitLong} converts to ${returnNum} ${returnUnitLong}`;
 	};
