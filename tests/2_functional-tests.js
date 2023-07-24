@@ -57,6 +57,8 @@ suite('Functional Tests', () => {
 			.get('/api/convert?input=kg')
 			.end((err, res) => {
 				assert.equal(res.status, 200);
+				assert.equal(res.body.initNum, 1);
+				assert.equal(res.body.initUnit, 'kg');
 				assert.equal(res.body.returnNum, 2.20462);
 				assert.equal(res.body.returnUnit, 'lbs');
 				done();
