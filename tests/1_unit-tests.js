@@ -4,15 +4,65 @@ const ConvertHandler = require('../controllers/convertHandler.js');
 
 let convertHandler = new ConvertHandler();
 
-suite('Unit Tests', function () {
+suite('Unit Tests', () => {
+	const isNumber = convertedValue => {
+		assert.isNotNull(convertedValue, 'converted value is not null');
+		assert.isDefined(convertedValue, 'converted value is not undefined');
+
+		assert.isNumber(convertedValue, 'converted value is a number');
+	};
+
+	suite('Parsing input numbers', () => {
+		test('Test - a whole number input can be correctly processed', () => {
+			const spelledResult = convertHandler.spellOutUnit('3mi');
+			const num = convertHandler.getNum(spelledResult?.num);
+
+			isNumber(num);
+			assert.strictEqual(num, 3, 'a whole input number is a whole number');
+		});
+
+		test('Test - a decimal number input can be correctly processed', () => {
+			const spelledResult = convertHandler.spellOutUnit('3.7L');
+			const num = convertHandler.getNum(spelledResult?.num);
+
+			isNumber(num);
+			assert.strictEqual(num, 3.7, 'a decimal input number is a decimal number');
+		});
+
+		test('Test - a fractional number input can be correctly processed', () => {
+			const spelledResult = convertHandler.spellOutUnit('1/2gal');
+			const num = convertHandler.getNum(spelledResult?.num);
+
+			isNumber(num);
+			assert.strictEqual(num, 0.5, 'a fractional input number is a fractional number');
+		});
+
+		test('Test - a double fraction number is returned as null', () => {
+			const spelledResult = convertHandler.spellOutUnit('3/2/3km');
+			const num = convertHandler.getNum(spelledResult?.num);
+
+			assert.isNull(num, 'a double fraction input number is processed as null');
+		});
+
+		test('Test - a default number is shown when no input number is provided', () => {
+			const spelledResult = convertHandler.spellOutUnit('lbs');
+			const num = convertHandler.getNum(spelledResult?.num);
+
+			isNumber(num);
+			assert.strictEqual(num, 1, 'input number defaults to 1 when no input is provided');
+		});
+	});
+
+	suite('Parsing input units', () => {
+		test('Test - a input unit can be correctly processed', () => {
+			const spelledResult = convertHandler.spellOutUnit('3MI');
+			const num = convertHandler.getUnit(spelledResult?.unit);
+
+			assert.strictEqual(num, 'mi', 'a valid input is read correctly');
+		});
+	});
+
 	suite('Conversions', () => {
-		const isNumber = convertedValue => {
-			assert.isNotNull(convertedValue, 'converted value is not null');
-			assert.isDefined(convertedValue, 'converted value is not undefined');
-
-			assert.isNumber(convertedValue, 'converted value is a number');
-		};
-
 		test('Test - gallons to litres conversion is working', () => {
 			const convertedValue = convertHandler.convert(2, 'gal');
 

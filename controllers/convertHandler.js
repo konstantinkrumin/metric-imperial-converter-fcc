@@ -21,6 +21,10 @@ const roundTo5Digits = num => {
 	return Number(Math.round(num + 'e5') + 'e-5');
 };
 
+const galToL = 3.78541;
+const miToKm = 1.60934;
+const lbsToKg = 0.453592;
+
 function ConvertHandler() {
 	this.getNum = numStr => {
 		if (!numStr) return 1;
