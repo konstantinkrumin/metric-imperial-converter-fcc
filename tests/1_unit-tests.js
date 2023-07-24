@@ -34,7 +34,19 @@ suite('Unit Tests', () => {
 			const num = convertHandler.getNum(spelledResult?.num);
 
 			isNumber(num);
-			assert.strictEqual(num, 0.5, 'a fractional input number is a fractional number');
+			assert.strictEqual(num, 0.5, 'a fractional input number is processed correctly');
+		});
+
+		test('Test - a fractional number with a decimal input can be correctly processed', () => {
+			const spelledResult = convertHandler.split('3/2.5kg');
+			const num = convertHandler.getNum(spelledResult?.num);
+
+			isNumber(num);
+			assert.strictEqual(
+				num,
+				1.2,
+				'a fractional input number with a decimal is processed correctly'
+			);
 		});
 
 		test('Test - a double fraction number is returned as null', () => {
