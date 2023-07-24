@@ -61,6 +61,49 @@ suite('Unit Tests', () => {
 			assert.isString(unit, 'input unit is a string');
 			assert.strictEqual(unit, 'mi', 'a valid input is read correctly');
 		});
+
+		test('Test - an incorrect input unit should return null', () => {
+			const spelledResult = convertHandler.split('5aBc');
+			const unit = convertHandler.getUnit(spelledResult?.unit);
+
+			assert.isNull(unit, 'an incorrect input unit returns null');
+		});
+	});
+
+	suite('Parsing return units', () => {
+		test('Test - a return unit can be correctly processed', () => {
+			const spelledResult = convertHandler.split('8gal');
+			const initUnit = convertHandler.getUnit(spelledResult?.unit);
+			const returnUnit = convertHandler.getReturnUnit(initUnit);
+
+			assert.isString(returnUnit, 'return unit is a string');
+			assert.strictEqual(returnUnit, 'L', 'gal correctly converts to L');
+		});
+	});
+
+	suite('Processing spelled out units', () => {
+		test('Test - a unit can be correctly spelled out', () => {
+			const spelledResult = convertHandler.split('12km');
+			const initUnit = convertHandler.getUnit(spelledResult?.unit);
+			const returnUnit = convertHandler.getReturnUnit(initUnit);
+
+			const initUnitSpelledOut = convertHandler.spellOutUnit(initUnit);
+			const returnUnitSpelledOut = convertHandler.spellOutUnit(returnUnit);
+
+			assert.isString(initUnitSpelledOut, 'initial spelled out unit is a string');
+			assert.isString(returnUnitSpelledOut, 'return spelled out unit is a string');
+
+			assert.strictEqual(
+				initUnitSpelledOut,
+				'kilometers',
+				'km is correctly spelled out as kilometers'
+			);
+			assert.strictEqual(
+				returnUnitSpelledOut,
+				'miles',
+				'mi is correctly spelled out as miles'
+			);
+		});
 	});
 
 	suite('Conversions', () => {
