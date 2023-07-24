@@ -20,20 +20,22 @@ function ConvertHandler() {
 	this.getUnit = unitStr => {
 		if (!unitStr) return null;
 
-		let result;
+		let parsedUnitStr;
 
 		switch (unitStr) {
 			case 'L':
-				result = unitStr;
+				parsedUnitStr = unitStr;
 				break;
 			case 'l':
-				result = unitStr?.toUpperCase();
+				parsedUnitStr = unitStr?.toUpperCase();
 				break;
 			default:
-				result = unitStr?.toLowerCase();
+				parsedUnitStr = unitStr?.toLowerCase();
 		}
 
-		return result;
+		const measurement_units = ['L', 'gal', 'km', 'mi', 'kg', 'lbs'];
+
+		return measurement_units.includes(parsedUnitStr) ? parsedUnitStr : null;
 	};
 
 	this.getReturnUnit = initUnit => {
