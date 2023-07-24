@@ -2,8 +2,19 @@ const SPLIT_PATTERN = /[a-zA-Z]/;
 
 const convertFractionToFloat = numStr => {
 	const [numerator, denominator] = numStr.split('/').map(Number);
+
 	const result = numerator / denominator;
 	return Math.round(result * 100) / 100;
+};
+
+const countCharOccurrence = (str, char) => {
+	let count = 0;
+	for (let i = 0; i < str.length; i++) {
+		if (str[i] === char) {
+			count++;
+		}
+	}
+	return count;
 };
 
 const roundTo5Digits = num => {
@@ -13,6 +24,7 @@ const roundTo5Digits = num => {
 function ConvertHandler() {
 	this.getNum = numStr => {
 		if (!numStr) return 1;
+		if (countCharOccurrence(numStr, '/') > 1) return null;
 
 		return numStr.includes('/') ? convertFractionToFloat(numStr) : parseFloat(numStr);
 	};
