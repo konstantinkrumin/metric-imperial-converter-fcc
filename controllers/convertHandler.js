@@ -1,5 +1,3 @@
-const SPLIT_PATTERN = /[a-zA-Z]/;
-
 const convertFractionToFloat = numStr => {
 	const [numerator, denominator] = numStr.split('/').map(Number);
 
@@ -21,35 +19,43 @@ const roundTo5Digits = num => {
 	return Number(Math.round(num + 'e5') + 'e-5');
 };
 
-const galToL = 3.78541;
-const miToKm = 1.60934;
-const lbsToKg = 0.453592;
+const splitInput = input => {
+	const SPLIT_PATTERN = /[a-zA-Z]/;
+
+	if (!input) return null;
+
+	const index = input.search(SPLIT_PATTERN);
+
+	if (index !== -1) {
+		const numStr = input.slice(0, index);
+		const unitStr = input.slice(index);
+
+		return { num: numStr, unit: unitStr };
+	} else {
+		return { num: input, unit: null };
+	}
+};
 
 function ConvertHandler() {
-	this.split = input => {
-		if (!input) return null;
+	this.getNum = input => {
+		const splittedInput = splitInput(input);
 
-		const index = input.search(SPLIT_PATTERN);
+		if (!splittedInput) return null;
+		if (!splittedInput?.num) return 1;
 
-		if (index !== -1) {
-			const numStr = input.slice(0, index);
-			const unitStr = input.slice(index);
+		const numStr = splittedInput?.num;
 
-			return { num: numStr, unit: unitStr };
-		} else {
-			return { num: input, unit: null };
-		}
-	};
-
-	this.getNum = numStr => {
-		if (!numStr) return 1;
 		if (countCharOccurrence(numStr, '/') > 1) return null;
 
 		return numStr.includes('/') ? convertFractionToFloat(numStr) : parseFloat(numStr);
 	};
 
-	this.getUnit = unitStr => {
-		if (!unitStr) return null;
+	this.getUnit = input => {
+		const splittedInput = splitInput(input);
+
+		if (!splittedInput || !splittedInput?.unit) return null;
+
+		const unitStr = splittedInput.unit;
 
 		let parsedUnitStr;
 
@@ -65,7 +71,6 @@ function ConvertHandler() {
 		}
 
 		const measurement_units = ['L', 'gal', 'km', 'mi', 'kg', 'lbs'];
-
 		return measurement_units.includes(parsedUnitStr) ? parsedUnitStr : null;
 	};
 

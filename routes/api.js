@@ -10,12 +10,8 @@ module.exports = app => {
 		const incomingInput = req.query.input;
 
 		try {
-			const spelledResult = convertHandler.split(incomingInput);
-
-			if (!spelledResult) throw 'invalid number and unit';
-
-			const initNum = convertHandler.getNum(spelledResult?.num);
-			const initUnit = convertHandler.getUnit(spelledResult?.unit);
+			const initNum = convertHandler.getNum(incomingInput);
+			const initUnit = convertHandler.getUnit(incomingInput);
 
 			if (!initNum && !initUnit) throw 'invalid number and unit';
 			if (!initNum) throw 'invalid number';
