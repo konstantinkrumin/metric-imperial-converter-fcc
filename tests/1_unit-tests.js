@@ -216,41 +216,41 @@ suite('Unit Tests', function () {
 	});
 
 	test('test for conversion return units', function () {
-		assert.equal(convertHandler.getReturnUnit('KG'), 'lbs');
-		assert.equal(convertHandler.getReturnUnit('MI'), 'km');
-		assert.equal(convertHandler.getReturnUnit('KM'), 'mi');
-		assert.equal(convertHandler.getReturnUnit('GAL'), 'L');
+		assert.equal(convertHandler.getReturnUnit('kg'), 'lbs');
+		assert.equal(convertHandler.getReturnUnit('mi'), 'km');
+		assert.equal(convertHandler.getReturnUnit('km'), 'mi');
+		assert.equal(convertHandler.getReturnUnit('gal'), 'L');
 		assert.equal(convertHandler.getReturnUnit('L'), 'gal');
-		assert.equal(convertHandler.getReturnUnit('LBS'), 'kg');
+		assert.equal(convertHandler.getReturnUnit('lbs'), 'kg');
 	});
 
 	test('test for units spelled out', function () {
-		assert.equal(convertHandler.spellOutUnit('KG'), 'kilograms');
-		assert.equal(convertHandler.spellOutUnit('LBS'), 'pounds');
-		assert.equal(convertHandler.spellOutUnit('KM'), 'kilometers');
-		assert.equal(convertHandler.spellOutUnit('MI'), 'miles');
-		assert.equal(convertHandler.spellOutUnit('GAL'), 'gallons');
-		assert.equal(convertHandler.spellOutUnit('L'), 'liters');
+		assert.equal(convertHandler.spellOutUnit('kg'), 'kilograms');
+		assert.equal(convertHandler.spellOutUnit('lbs'), 'pounds');
+		assert.equal(convertHandler.spellOutUnit('km'), 'kilometers');
+		assert.equal(convertHandler.spellOutUnit('mi'), 'miles');
+		assert.equal(convertHandler.spellOutUnit('gal'), 'gallons');
+		assert.equal(convertHandler.spellOutUnit('L'), 'litres');
 	});
 
 	test('test for converting kg to lbs', function () {
-		assert.equal(convertHandler.convert(2, 'KG'), 4.40925);
-		assert.equal(convertHandler.convert(5.567, 'KG'), 12.27314);
+		assert.equal(convertHandler.convert(2, 'kg'), 4.40925);
+		assert.equal(convertHandler.convert(5.567, 'kg'), 12.27314);
 	});
 	test('test for converting lbs to kg', function () {
-		assert.equal(convertHandler.convert(40, 'LBS'), 18.14368);
+		assert.equal(convertHandler.convert(40, 'lbs'), 18.14368);
 	});
 	test('test for converting km to mi', function () {
-		assert.equal(convertHandler.convert(90, 'KM'), 55.92355);
+		assert.equal(convertHandler.convert(90, 'km'), 55.92355);
 	});
 	test('test for converting mi to km', function () {
-		assert.equal(convertHandler.convert(100, 'MI'), 160.934);
-		assert.equal(convertHandler.convert(4 / 5, 'MI'), 1.28747);
+		assert.equal(convertHandler.convert(100, 'mi'), 160.934);
+		assert.equal(convertHandler.convert(4 / 5, 'mi'), 1.28747);
 	});
-	test('test for converting gal to liters', function () {
-		assert.equal(convertHandler.convert(4, 'GAL'), 15.14164);
+	test('test for converting gal to litres', function () {
+		assert.equal(convertHandler.convert(4, 'gal'), 15.14164);
 	});
-	test('test for converting liters to gal', function () {
+	test('test for converting litres to gal', function () {
 		assert.equal(convertHandler.convert(5, 'L'), 1.32086);
 	});
 });

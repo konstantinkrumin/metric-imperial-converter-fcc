@@ -1,8 +1,13 @@
 const convertFractionToFloat = numStr => {
 	const [numerator, denominator] = numStr.split('/').map(Number);
 
-	const result = numerator / denominator;
-	return Math.round(result * 100) / 100;
+	return numerator / denominator;
+	// const result = numerator / denominator;
+	// return Math.round(result * 100) / 100;
+};
+
+const roundTo5Digits = num => {
+	return Number(Math.round(num + 'e5') + 'e-5');
 };
 
 const countCharOccurrence = (str, char) => {
@@ -13,10 +18,6 @@ const countCharOccurrence = (str, char) => {
 		}
 	}
 	return count;
-};
-
-const roundTo5Digits = num => {
-	return Number(Math.round(num + 'e5') + 'e-5');
 };
 
 const splitInput = input => {
