@@ -18,7 +18,22 @@ function ConvertHandler() {
 	};
 
 	this.getUnit = unitStr => {
-		return unitStr;
+		if (!unitStr) return null;
+
+		let result;
+
+		switch (unitStr) {
+			case 'L':
+				result = unitStr;
+				break;
+			case 'l':
+				result = unitStr?.toUpperCase();
+				break;
+			default:
+				result = unitStr?.toLowerCase();
+		}
+
+		return result;
 	};
 
 	this.getReturnUnit = initUnit => {
@@ -38,10 +53,15 @@ function ConvertHandler() {
 		if (!input) return null;
 
 		const index = input.search(SPLIT_PATTERN);
-		const numStr = input.slice(0, index);
-		const unitStr = input.slice(index);
 
-		return { num: numStr, unit: unitStr };
+		if (index !== -1) {
+			const numStr = input.slice(0, index);
+			const unitStr = input.slice(index);
+
+			return { num: numStr, unit: unitStr };
+		} else {
+			return { num: input, unit: null };
+		}
 	};
 
 	this.convert = (initNum, initUnit) => {
@@ -71,7 +91,7 @@ function ConvertHandler() {
 				result = initNum * lbsToKg;
 				break;
 			default:
-				return (result = null);
+				result = null;
 		}
 
 		return roundTo5Digits(result);

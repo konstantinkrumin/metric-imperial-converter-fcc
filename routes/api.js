@@ -14,8 +14,14 @@ module.exports = app => {
 
 			if (!spelledResult) throw 'invalid number and unit';
 
+			console.log(spelledResult);
+
 			const initNum = convertHandler.getNum(spelledResult?.num);
 			const initUnit = convertHandler.getUnit(spelledResult?.unit);
+
+			if (!initNum && !initUnit) throw 'invalid number and unit';
+			if (!initNum) throw 'invalid number';
+			if (!initUnit) throw 'invalid unit';
 
 			const returnNum = convertHandler.convert(initNum, initUnit);
 			const returnUnit = convertHandler.getReturnUnit(initUnit);
