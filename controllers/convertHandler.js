@@ -2,8 +2,6 @@ const convertFractionToFloat = numStr => {
 	const [numerator, denominator] = numStr.split('/').map(Number);
 
 	return numerator / denominator;
-	// const result = numerator / denominator;
-	// return Math.round(result * 100) / 100;
 };
 
 const roundTo5Digits = num => {
