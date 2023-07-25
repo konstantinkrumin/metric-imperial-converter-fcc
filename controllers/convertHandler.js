@@ -1,56 +1,21 @@
-const convertFractionToFloat = numStr => {
-	const [numerator, denominator] = numStr.split('/').map(Number);
-
-	return numerator / denominator;
-};
-
-const roundTo5Digits = num => {
-	return Number(Math.round(num + 'e5') + 'e-5');
-};
-
-const countCharOccurrence = (str, char) => {
-	let count = 0;
-	for (let i = 0; i < str.length; i++) {
-		if (str[i] === char) {
-			count++;
-		}
-	}
-	return count;
-};
-
-const splitInput = input => {
-	const SPLIT_PATTERN = /[a-zA-Z]/;
-
-	if (!input) return null;
-
-	const index = input.search(SPLIT_PATTERN);
-
-	if (index !== -1) {
-		const numStr = input.slice(0, index);
-		const unitStr = input.slice(index);
-
-		return { num: numStr, unit: unitStr };
-	} else {
-		return { num: input, unit: null };
-	}
-};
+const Util = require('../utils');
 
 function ConvertHandler() {
 	this.getNum = input => {
-		const splittedInput = splitInput(input);
+		const splittedInput = Util.splitInput(input);
 
 		if (!splittedInput) return null;
 		if (!splittedInput?.num) return 1;
 
 		const numStr = splittedInput?.num;
 
-		if (countCharOccurrence(numStr, '/') > 1) return null;
+		if (Util.countCharOccurrence(numStr, '/') > 1) return null;
 
-		return numStr.includes('/') ? convertFractionToFloat(numStr) : parseFloat(numStr);
+		return numStr.includes('/') ? Util.convertFractionToFloat(numStr) : parseFloat(numStr);
 	};
 
 	this.getUnit = input => {
-		const splittedInput = splitInput(input);
+		const splittedInput = Util.splitInput(input);
 
 		if (!splittedInput || !splittedInput?.unit) return null;
 
@@ -116,7 +81,7 @@ function ConvertHandler() {
 				result = null;
 		}
 
-		return roundTo5Digits(result);
+		return Util.roundTo5Digits(result);
 	};
 
 	this.spellOutUnit = unit => {
